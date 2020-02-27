@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "lib": ["es6"],
+    "outDir": "lib",
+    "alwaysStrict": true,
+    "downlevelIteration": true,
+    "types": ["node", "mocha"]
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "node_modules/@types/mocha/index.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}
