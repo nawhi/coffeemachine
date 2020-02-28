@@ -1,10 +1,14 @@
 import {CoffeeMachine} from "./CoffeeMachine";
 
 export class Drink {
-    constructor(public readonly type: DrinkType) {
+    constructor(public readonly type: DrinkType,
+                public readonly sugars: number) {
     }
 
 
+    withSugars(number: number) {
+        return undefined;
+    }
 }
 
 export class DrinkMaker {
@@ -12,14 +16,11 @@ export class DrinkMaker {
     }
 
     make(drink: Drink) {
-        this.machine.order('T::');
+        this.machine.order(`T:${drink.sugars || ''}:`);
     }
 }
 
-enum DrinkType {
+export enum DrinkType {
     TEA
 }
 
-export class DrinkBuilder {
-    static TEA = new Drink(DrinkType.TEA);
-}
