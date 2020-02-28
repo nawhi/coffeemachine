@@ -16,7 +16,7 @@ export class DrinkMaker {
     }
 
     make(drink: Drink) {
-        this.machine.order(`T:${drink.sugars || ''}:`);
+        this.machine.order(`T:${drink.sugars || ''}:${drink.sugars ? '0' : ''}`);
     }
 }
 

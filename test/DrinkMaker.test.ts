@@ -23,10 +23,10 @@ describe('Drink Maker', () => {
         expect(machine.lastReceivedCommand()).to.eq('T::');
     });
 
-    it('makes a tea with 1 sugar', () => {
+    it('makes a tea with 1 sugar and a stick', () => {
         const machine = new CoffeeMachineSpy();
         const drinkMaker = new DrinkMaker(machine);
         drinkMaker.make(DrinkBuilder.TEA.sugars(1).build());
-        expect(machine.lastReceivedCommand()).to.eq('T:1:');
+        expect(machine.lastReceivedCommand()).to.eq('T:1:0');
     });
 });
