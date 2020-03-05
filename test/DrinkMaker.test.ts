@@ -49,7 +49,7 @@ describe("Drink Maker", () => {
       expect(machine.lastReceivedCommand()).to.eq("T::");
     });
 
-    it("sends a message containing the difference if funds are insufficient", () => {
+    it("sends a message with the difference instead if insufficient funds", () => {
       const machine = new CoffeeMachineSpy();
       const drinkMaker = new DrinkMaker(machine);
       drinkMaker.make(tea, 30);
