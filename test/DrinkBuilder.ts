@@ -17,3 +17,5 @@ export class DrinkBuilder {
 }
 
 export const TEA = new DrinkBuilder(DrinkType.TEA);
+export const COFFEE = new DrinkBuilder(DrinkType.COFFEE);
+export const CHOCOLATE = new DrinkBuilder(DrinkType.HOT_CHOCOLATE);
