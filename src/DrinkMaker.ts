@@ -8,8 +8,8 @@ export interface Drink {
 }
 
 export class HotDrink implements Drink {
-    constructor(public readonly type: DrinkType,
-                public readonly sugars: number, public readonly isExtraHot: boolean) {
+    constructor(readonly type: DrinkType,
+                private readonly sugars: number, private readonly isExtraHot: boolean) {
     }
 
     toCommand(): string {

@@ -86,11 +86,25 @@ describe("Drink Maker", () => {
     it('makes an extra hot coffee', () => {
       const machine = new CoffeeMachineSpy();
       const drinkMaker = new DrinkMaker(machine);
-      const drink = DrinkBuilder.COFFEE.extraHot().sugars(1).build();
+      const drink = DrinkBuilder.COFFEE
+          .extraHot()
+          .sugars(1)
+          .build();
 
       drinkMaker.make(drink, 60);
       expect(machine.lastReceivedCommand()).to.eq("Ch:1:0");
+    });
 
+    it('makes an extra hot chocolate', () => {
+      const machine = new CoffeeMachineSpy();
+      const drinkMaker = new DrinkMaker(machine);
+      const drink = DrinkBuilder.CHOCOLATE
+          .extraHot()
+          .sugars(4)
+          .build();
+
+      drinkMaker.make(drink, 60);
+      expect(machine.lastReceivedCommand()).to.eq("Hh:4:0");
     });
   });
 });
