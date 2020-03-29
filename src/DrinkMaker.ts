@@ -7,6 +7,11 @@ export interface Drink {
     toCommand(): string;
 }
 
+export interface Reporter {
+    report(val: string): void;
+}
+const defaultReporter: Reporter = { report: console.log };
+
 export class HotDrink implements Drink {
     constructor(readonly type: DrinkType,
                 private readonly sugars: number, private readonly isExtraHot: boolean) {
@@ -44,7 +49,7 @@ export class DrinkMaker {
         [DrinkType.ORANGE_JUICE]: 60
     };
 
-    constructor(private machine: CoffeeMachine) {
+    constructor(private machine: CoffeeMachine, private reporter = defaultReporter) {
     }
 
     make(drink: Drink, payment: Cents) {
@@ -54,6 +59,11 @@ export class DrinkMaker {
         } else {
             this.machine.order(drink.toCommand());
         }
+    }
+
+    printReport() {
+        this.reporter.report("Drinks sold: 0");
+        this.reporter.report("Total revenue: 0¢");
     }
 }
 
