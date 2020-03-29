@@ -13,12 +13,16 @@ export class HotDrink implements Drink {
     }
 
     toCommand(): string {
-        return `${this.type}${this.isExtraHot ? 'h' : ''}:${this.sugars || ''}:${this.sugars ? '0' : ''}`;
+        const drink = this.type + (this.isExtraHot ? 'h' : '');
+        const sugars = this.sugars || '';
+        const stirrer = this.sugars ? '0' : '';
+        return [drink, sugars, stirrer].join(':');
     }
 }
 
 export class ColdDrink implements Drink {
-    constructor(public readonly type: DrinkType) {}
+    constructor(public readonly type: DrinkType) {
+    }
 
     toCommand(): string {
         return `${this.type}::`;
