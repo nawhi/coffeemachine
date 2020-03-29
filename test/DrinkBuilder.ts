@@ -1,21 +1,35 @@
-import {Drink, DrinkType} from "../src/DrinkMaker";
+import {ColdDrink, DrinkType, HotDrink} from "../src/DrinkMaker";
 
-export class DrinkBuilder {
-    constructor(private type: DrinkType) {
+export class ColdDrinkBuilder {
+    constructor(protected type: DrinkType) {
     }
 
-    private numSugars: number;
+    public build() {
+        return new ColdDrink(this.type);
+    }
+}
 
-    public sugars(n: number): DrinkBuilder {
+export class HotDrinkBuilder extends ColdDrinkBuilder {
+
+    private numSugars: number = 0;
+    private isExtraHot: boolean = false;
+
+    public sugars(n: number): HotDrinkBuilder {
         this.numSugars = n;
         return this;
     }
 
     public build() {
-        return new Drink(this.type, this.numSugars);
+        return new HotDrink(this.type, this.numSugars, this.isExtraHot);
+    }
+
+    public extraHot() {
+        this.isExtraHot = true;
+        return this;
     }
 }
 
-export const TEA = new DrinkBuilder(DrinkType.TEA);
-export const COFFEE = new DrinkBuilder(DrinkType.COFFEE);
-export const CHOCOLATE = new DrinkBuilder(DrinkType.HOT_CHOCOLATE);
+export const TEA = new HotDrinkBuilder(DrinkType.TEA);
+export const COFFEE = new HotDrinkBuilder(DrinkType.COFFEE);
+export const CHOCOLATE = new HotDrinkBuilder(DrinkType.HOT_CHOCOLATE);
+export const ORANGE_JUICE = new ColdDrinkBuilder(DrinkType.ORANGE_JUICE);

@@ -39,6 +39,13 @@ describe("Drink Maker", () => {
       drinkMaker.make(DrinkBuilder.CHOCOLATE.build(), 50);
       expect(machine.lastReceivedCommand()).to.eq("H::");
     });
+
+    it("makes an orange juice for 0,6 euro", () => {
+      const machine = new CoffeeMachineSpy();
+      const drinkMaker = new DrinkMaker(machine);
+      drinkMaker.make(DrinkBuilder.ORANGE_JUICE.build(), 60);
+      expect(machine.lastReceivedCommand()).to.eq("O::");
+    })
   });
 
   describe("payment", () => {
@@ -72,6 +79,18 @@ describe("Drink Maker", () => {
       const drinkMaker = new DrinkMaker(machine);
       drinkMaker.make(DrinkBuilder.COFFEE.sugars(2).build(), 60);
       expect(machine.lastReceivedCommand()).to.eq("C:2:0");
+    });
+  });
+
+  describe('extra hot drinks', () => {
+    it('makes an extra hot coffee', () => {
+      const machine = new CoffeeMachineSpy();
+      const drinkMaker = new DrinkMaker(machine);
+      const drink = DrinkBuilder.COFFEE.extraHot().sugars(1).build();
+
+      drinkMaker.make(drink, 60);
+      expect(machine.lastReceivedCommand()).to.eq("Ch:1:0");
+
     });
   });
 });
