@@ -1,16 +1,19 @@
 import {CoffeeMachine} from "./CoffeeMachine";
+import {SalesRecord} from "./SalesRecord";
 
 type Cents = number;
 
 export interface Drink {
     readonly type: DrinkType;
+
     toCommand(): string;
 }
 
 export interface Reporter {
     report(val: string): void;
 }
-const defaultReporter: Reporter = { report: console.log };
+
+const defaultReporter: Reporter = {report: console.log};
 
 export class HotDrink implements Drink {
     constructor(readonly type: DrinkType,
@@ -49,21 +52,25 @@ export class DrinkMaker {
         [DrinkType.ORANGE_JUICE]: 60
     };
 
-    constructor(private machine: CoffeeMachine, private reporter = defaultReporter) {
+    private sales = new SalesRecord();
+
+    constructor(private machine: CoffeeMachine) {
     }
 
     make(drink: Drink, payment: Cents) {
         const cost = DrinkMaker.costs[drink.type];
         if (payment < cost) {
-            this.machine.order(`M:insufficient funds, ${cost - payment}¢ missing`);
+            this.machine.send(`M:insufficient funds, ${cost - payment}¢ missing`);
         } else {
-            this.machine.order(drink.toCommand());
+            this.machine.send(drink.toCommand());
+            this.sales.add(drink);
         }
     }
 
-    printReport() {
-        this.reporter.report("Drinks sold: 0");
-        this.reporter.report("Total revenue: 0¢");
+    printReport(reporter: Reporter) {
+        const revenue = 0;
+        reporter.report(`Drinks sold: 0`);
+        reporter.report(`Total revenue: ${revenue}¢`);
     }
 }
 

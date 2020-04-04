@@ -1,3 +1,3 @@
 export interface CoffeeMachine {
-    order(command: string);
+    send(command: string);
 }

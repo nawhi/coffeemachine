@@ -1,19 +1,10 @@
 import {expect} from "chai";
-import {CoffeeMachine} from "../src/CoffeeMachine";
-import {DrinkMaker, Reporter} from "../src/DrinkMaker";
+import {DrinkMaker} from "../src/DrinkMaker";
 import * as DrinkBuilder from "./DrinkBuilder";
+import {CHOCOLATE, COFFEE, ORANGE_JUICE, TEA} from "./DrinkBuilder";
+import {CoffeeMachineSpy, CoffeeMachineStub, ReporterSpy, times} from "./util";
 
-class CoffeeMachineSpy implements CoffeeMachine {
-    private commands: string[] = [];
-
-    order(command: string) {
-        this.commands.push(command);
-    }
-
-    lastReceivedCommand() {
-        return this.commands[this.commands.length - 1];
-    }
-}
+const ENOUGH_MONEY = 9999;
 
 describe("Drink Maker", () => {
     const tea = DrinkBuilder.TEA.build();
@@ -111,31 +102,29 @@ describe("Drink Maker", () => {
     describe('reporting', () => {
         it('prints a report with drink count and revenue', () => {
             const reporterSpy = new ReporterSpy();
-            const drinkMaker = new DrinkMaker(new CoffeeMachineStub(), reporterSpy);
+            const drinkMaker = new DrinkMaker(new CoffeeMachineStub());
 
-            drinkMaker.printReport();
+            drinkMaker.printReport(reporterSpy);
             expect(reporterSpy.getReport()).to.eql(
                 "Drinks sold: 0\n" +
                 "Total revenue: 0¢"
             );
         });
+
+        xit('prints a report itemising by drink type', () => {
+            const reporterSpy = new ReporterSpy();
+            const drinkMaker = new DrinkMaker(new CoffeeMachineStub());
+
+            drinkMaker.make(TEA.build(), ENOUGH_MONEY);
+            times(2).do(() => drinkMaker.make(ORANGE_JUICE.build(), ENOUGH_MONEY));
+            times(3).do(() => drinkMaker.make(COFFEE.build(), ENOUGH_MONEY));
+            times(4).do(() => drinkMaker.make(CHOCOLATE.build(), ENOUGH_MONEY));
+
+            drinkMaker.printReport(reporterSpy);
+            expect(reporterSpy.getReport()).to.eql(
+                "Drinks sold: 1 tea, 2 orange juice, 3 coffee, 4 chocolate\n" +
+                "Total revenue: 0¢"
+            );
+        });
     });
 });
-
-class CoffeeMachineStub implements CoffeeMachine {
-    order(command: string) {
-    }
-}
-
-class ReporterSpy implements Reporter {
-    private reports: string[] = [];
-
-    report(val: string): void {
-        this.reports.push(val);
-    }
-
-    getReport() {
-        return this.reports.join('\n');
-    }
-
-}
