@@ -111,7 +111,7 @@ describe("Drink Maker", () => {
             );
         });
 
-        xit('prints a report itemising by drink type', () => {
+        it('prints a report itemising by drink type', () => {
             const reporterSpy = new ReporterSpy();
             const drinkMaker = new DrinkMaker(new CoffeeMachineStub());
 
@@ -123,7 +123,7 @@ describe("Drink Maker", () => {
             drinkMaker.printReport(reporterSpy);
             expect(reporterSpy.getReport()).to.eql(
                 "Drinks sold: 1 tea, 2 orange juice, 3 coffee, 4 chocolate\n" +
-                "Total revenue: 0¢"
+                "Total revenue: 540¢"
             );
         });
     });

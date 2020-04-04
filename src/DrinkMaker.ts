@@ -1,5 +1,5 @@
 import {CoffeeMachine} from "./CoffeeMachine";
-import {SalesRecord} from "./SalesRecord";
+import {SalesRecorder} from "./SalesRecorder";
 
 type Cents = number;
 
@@ -44,6 +44,13 @@ export enum DrinkType {
     ORANGE_JUICE = 'O'
 }
 
+const DRINK_NAMES = {
+    [DrinkType.HOT_CHOCOLATE]: 'chocolate',
+    [DrinkType.TEA]: 'tea',
+    [DrinkType.COFFEE]: 'coffee',
+    [DrinkType.ORANGE_JUICE]: 'orange juice'
+};
+
 export class DrinkMaker {
     private static readonly costs = {
         [DrinkType.TEA]: 40,
@@ -52,7 +59,7 @@ export class DrinkMaker {
         [DrinkType.ORANGE_JUICE]: 60
     };
 
-    private sales = new SalesRecord();
+    private sales = new SalesRecorder();
 
     constructor(private machine: CoffeeMachine) {
     }
@@ -68,8 +75,17 @@ export class DrinkMaker {
     }
 
     printReport(reporter: Reporter) {
-        const revenue = 0;
-        reporter.report(`Drinks sold: 0`);
+        const sales = this.sales.getRecord();
+
+        const revenue = Object.entries(sales)
+            .map(([type, count]) => DrinkMaker.costs[type] * count)
+            .reduce((a, b) => a + b, 0);
+
+        const drinksList = Object.entries(sales)
+            .map(([type, count]) => `${count} ${DRINK_NAMES[type]}`)
+            .join(", ");
+
+        reporter.report(`Drinks sold: ${drinksList || '0'}`);
         reporter.report(`Total revenue: ${revenue}¢`);
     }
 }
