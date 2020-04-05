@@ -1,11 +1,11 @@
-import {Drink, DRINK_TYPES, DrinkData} from "../src/Drinks";
+import {ColdDrink, DrinkType, HotDrink} from "../src/DrinkMaker";
 
 export class ColdDrinkBuilder {
-    constructor(protected data: DrinkData) {
+    constructor(protected type: DrinkType) {
     }
 
     public build() {
-        return new Drink(this.data);
+        return new ColdDrink(this.type);
     }
 }
 
@@ -20,7 +20,7 @@ export class HotDrinkBuilder extends ColdDrinkBuilder {
     }
 
     public build() {
-        return new Drink(this.data, this.isExtraHot, this.numSugars);
+        return new HotDrink(this.type, this.numSugars, this.isExtraHot);
     }
 
     public extraHot() {
@@ -29,7 +29,7 @@ export class HotDrinkBuilder extends ColdDrinkBuilder {
     }
 }
 
-export const TEA = new HotDrinkBuilder(DRINK_TYPES.Tea);
-export const COFFEE = new HotDrinkBuilder(DRINK_TYPES.Coffee);
-export const CHOCOLATE = new HotDrinkBuilder(DRINK_TYPES.Chocolate);
-export const ORANGE_JUICE = new ColdDrinkBuilder(DRINK_TYPES.OrangeJuice);
+export const TEA = new HotDrinkBuilder(DrinkType.TEA);
+export const COFFEE = new HotDrinkBuilder(DrinkType.COFFEE);
+export const CHOCOLATE = new HotDrinkBuilder(DrinkType.HOT_CHOCOLATE);
+export const ORANGE_JUICE = new ColdDrinkBuilder(DrinkType.ORANGE_JUICE);

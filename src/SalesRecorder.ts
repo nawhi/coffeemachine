@@ -1,30 +1,19 @@
-import {Drink} from "./Drinks";
-import {Money} from "./DrinkMaker";
+import {Drink, DrinkType} from "./DrinkMaker";
 
-type SalesList = { [key: string]: number };
+type SalesList = { [key in DrinkType]?: number };
 
 export class SalesRecorder {
     private record: SalesList = {};
-    private record2: Drink[] = [];
-
-    private total: Money = 0;
-
 
     add(drink: Drink) {
-        if ((this.record)[drink.displayName]) {
-            (this.record)[drink.displayName]++;
+        if ((this.record)[drink.type]) {
+            (this.record)[drink.type]++;
         } else {
-            (this.record)[drink.displayName] = 1;
+            (this.record)[drink.type] = 1;
         }
-        this.total += drink.price;
     }
 
-    byDrinkType() {
-        return {...this.record};
+    getRecord(): SalesList {
+        return { ...this.record };
     }
-
-    getTotal(): number {
-        return this.total;
-    }
-
 }
