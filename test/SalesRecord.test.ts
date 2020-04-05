@@ -1,8 +1,8 @@
 import {SalesRecorder} from "../src/SalesRecorder";
 import {CHOCOLATE, ORANGE_JUICE} from "./DrinkBuilder";
 import { expect } from "chai";
-import {DrinkType} from "../src/DrinkMaker";
 import {times} from "./util";
+import {DrinkType} from "../src/Drinks";
 
 describe('Sales Record', () => {
     it('aggregates the drinks it recorded into a report', () => {

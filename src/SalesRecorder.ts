@@ -1,4 +1,4 @@
-import {Drink, DrinkType} from "./DrinkMaker";
+import {Drink, DrinkType} from "./Drinks";
 
 type SalesList = { [key in DrinkType]?: number };
 
