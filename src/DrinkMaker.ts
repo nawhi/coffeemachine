@@ -42,7 +42,7 @@ export class DrinkMaker {
         }
     }
 
-    printReport(reporter: Reporter) {
+    reportTo(reporter: Reporter) {
         const revenue = this.sales.totalRevenue();
 
         const record = this.sales.getRecord();

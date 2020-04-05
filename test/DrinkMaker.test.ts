@@ -120,7 +120,7 @@ describe("Drink Maker", () => {
             const reporterSpy = new ReporterSpy();
             const drinkMaker = new DrinkMaker(new CoffeeMachineStub());
 
-            drinkMaker.printReport(reporterSpy);
+            drinkMaker.reportTo(reporterSpy);
             expect(reporterSpy.getReport()).to.eql(
                 "Drinks sold: 0\n" +
                 "Total revenue: 0¢"
@@ -136,7 +136,7 @@ describe("Drink Maker", () => {
             times(3).do(() => drinkMaker.make(COFFEE.build(), ENOUGH_MONEY));
             times(4).do(() => drinkMaker.make(CHOCOLATE.build(), ENOUGH_MONEY));
 
-            drinkMaker.printReport(reporterSpy);
+            drinkMaker.reportTo(reporterSpy);
             expect(reporterSpy.getReport()).to.eql(
                 "Drinks sold: 1 tea, 2 orange juice, 3 coffee, 4 chocolate\n" +
                 "Total revenue: 540¢"
