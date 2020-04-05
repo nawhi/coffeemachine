@@ -10,10 +10,10 @@ export class Commands {
         return `M:${DRINK_NAMES[drink.code]} shortage - maintenance have been notified`;
     }
 
-    static fromDrink(d: Drink): string {
-        const code = d.code + (d.isExtraHot ? 'h' : '');
-        const sugars = d.sugars || '';
-        const stirrer = d.sugars ? '0' : '';
+    static fromDrink(drink: Drink): string {
+        const code = drink.code + (drink.isExtraHot ? 'h' : '');
+        const sugars = drink.sugars || '';
+        const stirrer = drink.sugars ? '0' : '';
 
         return [code, sugars, stirrer].join(':');
     }
