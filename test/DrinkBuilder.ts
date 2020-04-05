@@ -1,11 +1,11 @@
-import {Drink, Drink2, DrinkType} from "../src/Drinks";
+import {Drink, DrinkType} from "../src/Drinks";
 
 export class ColdDrinkBuilder {
     constructor(protected type: DrinkType) {
     }
 
-    public build(): Drink | Drink2 {
-        return new Drink2(this.type);
+    public build() {
+        return new Drink(this.type);
     }
 }
 
@@ -20,7 +20,7 @@ export class HotDrinkBuilder extends ColdDrinkBuilder {
     }
 
     public build() {
-        return new Drink2(this.type, this.isExtraHot, this.numSugars);
+        return new Drink(this.type, this.isExtraHot, this.numSugars);
     }
 
     public extraHot() {

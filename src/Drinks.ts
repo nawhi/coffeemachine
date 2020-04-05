@@ -7,12 +7,6 @@ export enum DrinkType {
     ORANGE_JUICE = 'O'
 }
 
-export interface Drink {
-    readonly type: DrinkType;
-
-    toCommand(): string;
-}
-
 export const DRINK_NAMES = {
     [DrinkType.HOT_CHOCOLATE]: 'chocolate',
     [DrinkType.TEA]: 'tea',
@@ -27,7 +21,7 @@ export const DRINK_PRICES = {
     [DrinkType.ORANGE_JUICE]: 60
 };
 
-export class Drink2 implements Drink {
+export class Drink {
     public readonly price: Money;
 
     constructor(
@@ -44,7 +38,7 @@ export class Drink2 implements Drink {
 }
 
 class DrinkCommandGenerator {
-    public static commandFor(drink: Drink2): string {
+    public static commandFor(drink: Drink): string {
         const drinkKey = drink.type + (drink.extraHot ? 'h' : '');
         const sugars = drink.sugars || '';
         const stirrer = drink.sugars ? '0' : '';
