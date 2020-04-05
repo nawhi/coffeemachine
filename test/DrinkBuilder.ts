@@ -1,11 +1,18 @@
-import {ColdDrink, DrinkType, HotDrink} from "../src/DrinkMaker";
+import {ColdDrink, DrinkType, HotDrink} from "../src/Drink";
+
+const costs = {
+    [DrinkType.TEA]: 40,
+    [DrinkType.HOT_CHOCOLATE]: 50,
+    [DrinkType.COFFEE]: 60,
+    [DrinkType.ORANGE_JUICE]: 60
+};
 
 export class ColdDrinkBuilder {
     constructor(protected type: DrinkType) {
     }
 
     public build() {
-        return new ColdDrink(this.type);
+        return new ColdDrink(this.type, costs[this.type]);
     }
 }
 
@@ -20,7 +27,7 @@ export class HotDrinkBuilder extends ColdDrinkBuilder {
     }
 
     public build() {
-        return new HotDrink(this.type, this.numSugars, this.isExtraHot);
+        return new HotDrink(this.type, costs[this.type], this.numSugars, this.isExtraHot);
     }
 
     public extraHot() {
