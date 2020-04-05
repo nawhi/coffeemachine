@@ -1,6 +1,6 @@
 import {CoffeeMachine} from "./CoffeeMachine";
 import {SalesRecorder} from "./SalesRecorder";
-import {Drink, DRINK_NAMES, DRINK_PRICES} from "./Drinks";
+import {Drink} from "./Drinks";
 
 export type Money = number;
 
@@ -25,15 +25,15 @@ export class DrinkMaker {
     }
 
     printReport(reporter: Reporter) {
-        const sales = this.sales.getRecord();
+        const revenue = this.sales.getTotal();
 
-        const revenue = this.sales.totalRevenue();
+        const salesByType = this.sales.byDrinkType();
+        const drinksSold = Object.entries(salesByType)
+                .map(([name, count]) => `${count} ${name}`)
+                .join(", ")
+            || '0';
 
-        const drinksList = Object.entries(sales)
-            .map(([type, count]) => `${count} ${DRINK_NAMES[type]}`)
-            .join(", ");
-
-        reporter.report(`Drinks sold: ${drinksList || '0'}`);
+        reporter.report(`Drinks sold: ${drinksSold}`);
         reporter.report(`Total revenue: ${revenue}¢`);
     }
 }
