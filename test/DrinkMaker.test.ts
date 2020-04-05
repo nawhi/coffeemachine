@@ -77,14 +77,14 @@ describe("Drink Maker", () => {
         it("makes a tea with 1 sugar and a stick", () => {
             const machine = new CoffeeMachineSpy();
             const drinkMaker = new DrinkMaker(machine);
-            drinkMaker.make(DrinkBuilder.TEA.sugars(1).build(), 40);
+            drinkMaker.make(DrinkBuilder.TEA.withSugars(1).build(), 40);
             expect(machine.lastReceivedCommand()).to.eq("T:1:0");
         });
 
         it("makes a coffee with 2 sugars and a stick", () => {
             const machine = new CoffeeMachineSpy();
             const drinkMaker = new DrinkMaker(machine);
-            drinkMaker.make(DrinkBuilder.COFFEE.sugars(2).build(), 60);
+            drinkMaker.make(DrinkBuilder.COFFEE.withSugars(2).build(), 60);
             expect(machine.lastReceivedCommand()).to.eq("C:2:0");
         });
     });
@@ -95,7 +95,7 @@ describe("Drink Maker", () => {
             const drinkMaker = new DrinkMaker(machine);
             const drink = DrinkBuilder.COFFEE
                 .extraHot()
-                .sugars(1)
+                .withSugars(1)
                 .build();
 
             drinkMaker.make(drink, 60);
@@ -107,7 +107,7 @@ describe("Drink Maker", () => {
             const drinkMaker = new DrinkMaker(machine);
             const drink = DrinkBuilder.CHOCOLATE
                 .extraHot()
-                .sugars(4)
+                .withSugars(4)
                 .build();
 
             drinkMaker.make(drink, 60);

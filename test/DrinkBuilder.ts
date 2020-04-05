@@ -10,15 +10,16 @@ const prices = {
 
 export class HotDrinkBuilder {
 
-    constructor(public readonly code: DrinkCode) {
-
+    constructor(
+        public readonly code: DrinkCode,
+        public readonly price: Money = prices[code]) {
     }
 
-    private numSugars: number = 0;
+    private sugars: number = 0;
     private isExtraHot: boolean = false;
 
-    public sugars(n: number): HotDrinkBuilder {
-        this.numSugars = n;
+    public withSugars(n: number): HotDrinkBuilder {
+        this.sugars = n;
         return this;
     }
 
@@ -27,7 +28,7 @@ export class HotDrinkBuilder {
         return {
             code: this.code,
             price: prices[this.code],
-            sugars: this.numSugars,
+            sugars: this.sugars,
             isExtraHot: this.isExtraHot
         };
     }
