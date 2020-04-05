@@ -1,4 +1,4 @@
-import {Drink, DrinkType} from "./Drinks";
+import {Drink} from "./Drinks";
 import {Money} from "./DrinkMaker";
 
 type SalesList = { [key: string]: number };

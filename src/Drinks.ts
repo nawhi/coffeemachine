@@ -1,12 +1,5 @@
 import {Money} from "./DrinkMaker";
 
-export enum DrinkType {
-    HOT_CHOCOLATE = 'H',
-    COFFEE = 'C',
-    TEA = 'T',
-    ORANGE_JUICE = 'O'
-}
-
 export type DrinkData = {
     code: string;
     displayName: string;
