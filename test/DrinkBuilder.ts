@@ -1,4 +1,5 @@
 import {Drink, DrinkCode} from "../src/Drink";
+import {Money} from "../src/DrinkMaker";
 
 const prices = {
     [DrinkCode.TEA]: 40,
@@ -7,19 +8,11 @@ const prices = {
     [DrinkCode.ORANGE_JUICE]: 60
 };
 
-export class ColdDrinkBuilder {
-    constructor(protected code: DrinkCode) {
-    }
+export class HotDrinkBuilder {
 
-    public build(): Drink {
-        return {
-            code: this.code,
-            price: prices[this.code]
-        };
-    }
-}
+    constructor(public readonly code: DrinkCode) {
 
-export class HotDrinkBuilder extends ColdDrinkBuilder {
+    }
 
     private numSugars: number = 0;
     private isExtraHot: boolean = false;
@@ -48,4 +41,9 @@ export class HotDrinkBuilder extends ColdDrinkBuilder {
 export const TEA = new HotDrinkBuilder(DrinkCode.TEA);
 export const COFFEE = new HotDrinkBuilder(DrinkCode.COFFEE);
 export const CHOCOLATE = new HotDrinkBuilder(DrinkCode.HOT_CHOCOLATE);
-export const ORANGE_JUICE = new ColdDrinkBuilder(DrinkCode.ORANGE_JUICE);
+
+
+export const ORANGE_JUICE: Drink = {
+    code: DrinkCode.ORANGE_JUICE,
+    price: 60
+};

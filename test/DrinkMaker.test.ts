@@ -40,7 +40,7 @@ describe("Drink Maker", () => {
         it("makes an orange juice for 0,6 euro", () => {
             const machine = new CoffeeMachineSpy();
             const drinkMaker = new DrinkMaker(machine);
-            drinkMaker.make(DrinkBuilder.ORANGE_JUICE.build(), 60);
+            drinkMaker.make(ORANGE_JUICE, 60);
             expect(machine.lastReceivedCommand()).to.eq("O::");
         })
     });
@@ -65,7 +65,7 @@ describe("Drink Maker", () => {
         it("sends insufficient funds message for cold drink", () => {
             const machine = new CoffeeMachineSpy();
             const drinkMaker = new DrinkMaker(machine);
-            drinkMaker.make(DrinkBuilder.ORANGE_JUICE.build(), 30);
+            drinkMaker.make(ORANGE_JUICE, 30);
 
             const command = machine.lastReceivedCommand();
             expect(command).to.match(/^M:/);
@@ -132,7 +132,7 @@ describe("Drink Maker", () => {
             const drinkMaker = new DrinkMaker(new CoffeeMachineStub());
 
             drinkMaker.make(TEA.build(), ENOUGH_MONEY);
-            times(2).do(() => drinkMaker.make(ORANGE_JUICE.build(), ENOUGH_MONEY));
+            times(2).do(() => drinkMaker.make(ORANGE_JUICE, ENOUGH_MONEY));
             times(3).do(() => drinkMaker.make(COFFEE.build(), ENOUGH_MONEY));
             times(4).do(() => drinkMaker.make(CHOCOLATE.build(), ENOUGH_MONEY));
 
