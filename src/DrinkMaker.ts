@@ -58,7 +58,7 @@ const defaultNotifier: EmailNotifier = {
 };
 
 const defaultQuantityChecker: BeverageQuantityChecker = {
-    isEmpty(drink: DrinkCode) {
+    isEmpty(ignored: DrinkCode) {
         return false;
     }
 };

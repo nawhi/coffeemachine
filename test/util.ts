@@ -11,7 +11,7 @@ export function times(n: number) {
 }
 
 export class CoffeeMachineStub implements CoffeeMachine {
-    send(command: string) {
+    send(ignored: string) {
     }
 }
 
@@ -54,7 +54,7 @@ export class EmailNotifierSpy implements EmailNotifier {
 }
 
 export class MissingQuantityChecker implements BeverageQuantityChecker {
-    isEmpty(drink: DrinkCode): boolean {
+    isEmpty(ignored: DrinkCode): boolean {
         return true;
     }
 }
