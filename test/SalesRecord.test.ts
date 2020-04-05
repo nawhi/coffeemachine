@@ -17,7 +17,7 @@ describe('Sales Record', () => {
     it('aggregates multiple types of drinks', () => {
         const recorder = new SalesRecorder();
         recorder.add(ORANGE_JUICE);
-        times(4).do(() => recorder.add(CHOCOLATE.build()));
+        times(4).do(() => recorder.add(CHOCOLATE));
 
         expect(recorder.getRecord()).to.eql({
             [DrinkCode.ORANGE_JUICE]: 1,
@@ -28,7 +28,7 @@ describe('Sales Record', () => {
     it('gets total across all drinks registered', () => {
         const recorder = new SalesRecorder();
         times(7).do(() => recorder.add(ORANGE_JUICE));
-        times(4).do(() => recorder.add(CHOCOLATE.build()));
+        times(4).do(() => recorder.add(CHOCOLATE));
 
         expect(recorder.totalRevenue()).to.eql(620);
     });

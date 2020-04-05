@@ -8,29 +8,19 @@ const prices = {
     [DrinkCode.ORANGE_JUICE]: 60
 };
 
-export class HotDrinkBuilder {
+export class HotDrinkBuilder implements Drink {
 
     constructor(
         public readonly code: DrinkCode,
         public readonly price: Money = prices[code]) {
     }
 
-    private sugars: number = 0;
-    private isExtraHot: boolean = false;
+    public sugars: number = 0;
+    public isExtraHot: boolean = false;
 
     public withSugars(n: number): HotDrinkBuilder {
         this.sugars = n;
         return this;
-    }
-
-    public build(): Drink {
-
-        return {
-            code: this.code,
-            price: prices[this.code],
-            sugars: this.sugars,
-            isExtraHot: this.isExtraHot
-        };
     }
 
     public extraHot() {
