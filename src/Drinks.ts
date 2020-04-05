@@ -7,6 +7,25 @@ export enum DrinkType {
     ORANGE_JUICE = 'O'
 }
 
+const DRINK_DATA = {
+    'H': {
+        displayName: 'chocolate',
+        price: 50
+    },
+    'T': {
+        displayName: 'tea',
+        price: 40
+    },
+    'C': {
+        displayName: 'coffee',
+        price: 60
+    },
+    'O': {
+        displayName: 'orange juice',
+        price: 60
+    }
+};
+
 export const DRINK_NAMES = {
     [DrinkType.HOT_CHOCOLATE]: 'chocolate',
     [DrinkType.TEA]: 'tea',
@@ -23,13 +42,16 @@ export const DRINK_PRICES = {
 
 export class Drink {
     public readonly price: Money;
+    public readonly displayName: string;
 
     constructor(
         public readonly type: DrinkType,
         public readonly extraHot: boolean = false,
         public readonly sugars: number = 0
     ) {
-        this.price = DRINK_PRICES[type];
+        const { price, displayName } = DRINK_DATA[type];
+        this.price = price;
+        this.displayName = displayName;
     }
 
     toCommand(): string {

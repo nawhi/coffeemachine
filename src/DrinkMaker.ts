@@ -15,7 +15,7 @@ export class DrinkMaker {
     }
 
     make(drink: Drink, payment: Money) {
-        const cost = DRINK_PRICES[drink.type];
+        const cost = drink.price;
         if (payment < cost) {
             this.machine.send(`M:insufficient funds, ${cost - payment}¢ missing`);
         } else {
@@ -27,9 +27,7 @@ export class DrinkMaker {
     printReport(reporter: Reporter) {
         const sales = this.sales.getRecord();
 
-        const revenue = Object.entries(sales)
-            .map(([type, count]) => DRINK_PRICES[type] * count)
-            .reduce((a, b) => a + b, 0);
+        const revenue = this.sales.totalRevenue();
 
         const drinksList = Object.entries(sales)
             .map(([type, count]) => `${count} ${DRINK_NAMES[type]}`)
