@@ -2,7 +2,15 @@ import {expect} from "chai";
 import {DrinkMaker} from "../src/DrinkMaker";
 import * as DrinkBuilder from "./DrinkBuilder";
 import {CHOCOLATE, COFFEE, ORANGE_JUICE, TEA} from "./DrinkBuilder";
-import {CoffeeMachineSpy, CoffeeMachineStub, ReporterSpy, times} from "./util";
+import {
+    CoffeeMachineSpy,
+    CoffeeMachineStub,
+    EmailNotifierSpy,
+    MissingQuantityChecker,
+    ReporterSpy,
+    times
+} from "./util";
+import {DrinkType} from "../src/Drink";
 
 const ENOUGH_MONEY = 9999;
 
@@ -125,6 +133,20 @@ describe("Drink Maker", () => {
                 "Drinks sold: 1 tea, 2 orange juice, 3 coffee, 4 chocolate\n" +
                 "Total revenue: 540¢"
             );
+        });
+    });
+
+    describe('Shortage notifications', () => {
+        it('notifies when a drink is missing', () => {
+            const checker = new MissingQuantityChecker();
+            const notifier = new EmailNotifierSpy();
+
+            const machine = new CoffeeMachineSpy();
+            const drinkMaker = new DrinkMaker(machine, notifier, checker);
+            drinkMaker.make(TEA.build(), ENOUGH_MONEY);
+
+            expect(notifier.lastReceivedNotification()).to.eql(DrinkType.TEA);
+            expect(machine.lastReceivedCommand()).to.eql('M:tea shortage - maintenance have been notified');
         });
     });
 });

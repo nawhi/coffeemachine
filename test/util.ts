@@ -1,5 +1,6 @@
 import {CoffeeMachine} from "../src/CoffeeMachine";
-import {Reporter} from "../src/DrinkMaker";
+import {BeverageQuantityChecker, EmailNotifier, Reporter} from "../src/DrinkMaker";
+import {DrinkType} from "../src/Drink";
 
 export function times(n: number) {
     return {
@@ -36,5 +37,24 @@ export class CoffeeMachineSpy implements CoffeeMachine {
 
     lastReceivedCommand() {
         return this.commands[this.commands.length - 1];
+    }
+}
+
+export class EmailNotifierSpy implements EmailNotifier {
+    public readonly notifications: DrinkType[] = [];
+
+    notifyMissingDrink(type: DrinkType): void {
+        this.notifications.push(type);
+    }
+
+    public lastReceivedNotification() {
+        return this.notifications[this.notifications.length - 1];
+    }
+
+}
+
+export class MissingQuantityChecker implements BeverageQuantityChecker {
+    isEmpty(drink: DrinkType): boolean {
+        return true;
     }
 }

@@ -8,6 +8,14 @@ export interface Reporter {
     report(val: string): void;
 }
 
+export interface EmailNotifier {
+    notifyMissingDrink(type: DrinkType): void;
+}
+
+export interface BeverageQuantityChecker {
+    isEmpty(type: DrinkType): boolean;
+}
+
 export class DrinkMaker {
     private static readonly costs = {
         [DrinkType.TEA]: 40,
@@ -18,13 +26,20 @@ export class DrinkMaker {
 
     private sales = new SalesRecorder();
 
-    constructor(private machine: CoffeeMachine) {
+    constructor(
+        private machine: CoffeeMachine,
+        private notifier: EmailNotifier = defaultNotifier,
+        private checker: BeverageQuantityChecker = defaultQuantityChecker
+    ) {
     }
 
     make(drink: Drink, payment: Money) {
         const cost = drink.price;
         if (payment < cost) {
             this.machine.send(`M:insufficient funds, ${cost - payment}¢ missing`);
+        } else if (this.checker.isEmpty(drink.type)) {
+            this.notifier.notifyMissingDrink(drink.type);
+            this.machine.send(`M:${DRINK_NAMES[drink.type]} shortage - maintenance have been notified`);
         } else {
             this.machine.send(drink.toCommand());
             this.sales.add(drink);
@@ -43,4 +58,15 @@ export class DrinkMaker {
         reporter.report(`Total revenue: ${revenue}¢`);
     }
 }
+
+const defaultNotifier = {
+    notifyMissingDrink(ignored: DrinkType) {
+    }
+};
+
+const defaultQuantityChecker = {
+    isEmpty(drink: DrinkType) {
+        return false;
+    }
+};
 
