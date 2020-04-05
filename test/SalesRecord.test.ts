@@ -2,7 +2,7 @@ import {SalesRecorder} from "../src/SalesRecorder";
 import {CHOCOLATE, ORANGE_JUICE} from "./DrinkBuilder";
 import {expect} from "chai";
 import {times} from "./util";
-import {DrinkType} from "../src/Drink";
+import {DrinkCode} from "../src/Drink";
 
 describe('Sales Record', () => {
     it('aggregates the drinks it recorded into a report', () => {
@@ -10,7 +10,7 @@ describe('Sales Record', () => {
         recorder.add(ORANGE_JUICE.build());
 
         expect(recorder.getRecord()).to.eql({
-            [DrinkType.ORANGE_JUICE]: 1
+            [DrinkCode.ORANGE_JUICE]: 1
         });
     });
 
@@ -20,8 +20,8 @@ describe('Sales Record', () => {
         times(4).do(() => recorder.add(CHOCOLATE.build()));
 
         expect(recorder.getRecord()).to.eql({
-            [DrinkType.ORANGE_JUICE]: 1,
-            [DrinkType.HOT_CHOCOLATE]: 4
+            [DrinkCode.ORANGE_JUICE]: 1,
+            [DrinkCode.HOT_CHOCOLATE]: 4
         });
     });
 

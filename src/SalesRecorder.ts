@@ -1,17 +1,17 @@
-import {Drink, DrinkType} from "./Drink";
+import {Drink, DrinkCode} from "./Drink";
 import {Money} from "./DrinkMaker";
 
-type SalesList = { [key in DrinkType]?: number };
+type SalesList = { [key in DrinkCode]?: number };
 
 export class SalesRecorder {
     private record: SalesList = {};
     private total: Money = 0;
 
     add(drink: Drink) {
-        if ((this.record)[drink.type]) {
-            (this.record)[drink.type]++;
+        if ((this.record)[drink.code]) {
+            (this.record)[drink.code]++;
         } else {
-            (this.record)[drink.type] = 1;
+            (this.record)[drink.code] = 1;
         }
         this.total += drink.price;
     }

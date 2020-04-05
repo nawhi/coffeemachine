@@ -7,7 +7,7 @@ export class Commands {
     }
 
     static shortageOf(drink: Drink) {
-        return `M:${DRINK_NAMES[drink.type]} shortage - maintenance have been notified`;
+        return `M:${DRINK_NAMES[drink.code]} shortage - maintenance have been notified`;
     }
 
     static fromDrink(drink: Drink): string {
@@ -17,7 +17,7 @@ export class Commands {
             ...drink
         };
 
-        const code = d.type + (d.isExtraHot ? 'h' : '');
+        const code = d.code + (d.isExtraHot ? 'h' : '');
         const sugars = d.sugars || '';
         const stirrer = d.sugars ? '0' : '';
 

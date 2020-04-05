@@ -10,7 +10,7 @@ import {
     ReporterSpy,
     times
 } from "./util";
-import {DrinkType} from "../src/Drink";
+import {DrinkCode} from "../src/Drink";
 
 const ENOUGH_MONEY = 9999;
 
@@ -153,7 +153,7 @@ describe("Drink Maker", () => {
             const drinkMaker = new DrinkMaker(machine, notifier, checker);
             drinkMaker.make(TEA.build(), ENOUGH_MONEY);
 
-            expect(notifier.lastReceivedNotification()).to.eql(DrinkType.TEA);
+            expect(notifier.lastReceivedNotification()).to.eql(DrinkCode.TEA);
             expect(machine.lastReceivedCommand()).to.eql('M:tea shortage - maintenance have been notified');
         });
     });

@@ -1,14 +1,14 @@
-import {ColdDrink, DrinkType, HotDrink} from "../src/Drink";
+import {ColdDrink, DrinkCode, HotDrink} from "../src/Drink";
 
 const costs = {
-    [DrinkType.TEA]: 40,
-    [DrinkType.HOT_CHOCOLATE]: 50,
-    [DrinkType.COFFEE]: 60,
-    [DrinkType.ORANGE_JUICE]: 60
+    [DrinkCode.TEA]: 40,
+    [DrinkCode.HOT_CHOCOLATE]: 50,
+    [DrinkCode.COFFEE]: 60,
+    [DrinkCode.ORANGE_JUICE]: 60
 };
 
 export class ColdDrinkBuilder {
-    constructor(protected type: DrinkType) {
+    constructor(protected type: DrinkCode) {
     }
 
     public build() {
@@ -36,7 +36,7 @@ export class HotDrinkBuilder extends ColdDrinkBuilder {
     }
 }
 
-export const TEA = new HotDrinkBuilder(DrinkType.TEA);
-export const COFFEE = new HotDrinkBuilder(DrinkType.COFFEE);
-export const CHOCOLATE = new HotDrinkBuilder(DrinkType.HOT_CHOCOLATE);
-export const ORANGE_JUICE = new ColdDrinkBuilder(DrinkType.ORANGE_JUICE);
+export const TEA = new HotDrinkBuilder(DrinkCode.TEA);
+export const COFFEE = new HotDrinkBuilder(DrinkCode.COFFEE);
+export const CHOCOLATE = new HotDrinkBuilder(DrinkCode.HOT_CHOCOLATE);
+export const ORANGE_JUICE = new ColdDrinkBuilder(DrinkCode.ORANGE_JUICE);

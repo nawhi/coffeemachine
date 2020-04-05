@@ -1,6 +1,6 @@
 import {CoffeeMachine} from "./CoffeeMachine";
 import {SalesRecorder} from "./SalesRecorder";
-import {Drink, DRINK_NAMES, DrinkType} from "./Drink";
+import {Drink, DRINK_NAMES, DrinkCode} from "./Drink";
 import {Commands} from "./Commands";
 
 export type Money = number;
@@ -10,11 +10,11 @@ export interface Reporter {
 }
 
 export interface EmailNotifier {
-    notifyMissingDrink(type: DrinkType): void;
+    notifyMissingDrink(type: DrinkCode): void;
 }
 
 export interface BeverageQuantityChecker {
-    isEmpty(type: DrinkType): boolean;
+    isEmpty(type: DrinkCode): boolean;
 }
 
 export class DrinkMaker {
@@ -30,8 +30,8 @@ export class DrinkMaker {
     make(drink: Drink, payment: Money) {
         if (payment < drink.price) {
             this.machine.send(Commands.insufficientFunds(drink.price, payment));
-        } else if (this.checker.isEmpty(drink.type)) {
-            this.notifier.notifyMissingDrink(drink.type);
+        } else if (this.checker.isEmpty(drink.code)) {
+            this.notifier.notifyMissingDrink(drink.code);
             this.machine.send(Commands.shortageOf(drink));
         } else {
             this.machine.send(Commands.fromDrink(drink));
@@ -53,12 +53,12 @@ export class DrinkMaker {
 }
 
 const defaultNotifier: EmailNotifier = {
-    notifyMissingDrink(ignored: DrinkType) {
+    notifyMissingDrink(ignored: DrinkCode) {
     }
 };
 
 const defaultQuantityChecker: BeverageQuantityChecker = {
-    isEmpty(drink: DrinkType) {
+    isEmpty(drink: DrinkCode) {
         return false;
     }
 };
