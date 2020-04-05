@@ -1,39 +1,35 @@
 import {Money} from "./DrinkMaker";
 
 export enum DrinkType {
-    HOT_CHOCOLATE = 'H',
-    COFFEE = 'C',
-    TEA = 'T',
-    ORANGE_JUICE = 'O'
+    HOT_CHOCOLATE,
+    COFFEE,
+    TEA,
+    ORANGE_JUICE,
 }
 
 export interface Drink {
     readonly type: DrinkType;
     readonly price: Money;
-    toCommand(): string;
+    readonly sugars: number;
+    readonly isExtraHot: boolean;
 }
 
 export class HotDrink implements Drink {
     constructor(public readonly type: DrinkType,
                 public readonly price: Money,
-                private readonly sugars: number,
-                private readonly isExtraHot: boolean) {
-    }
-
-    toCommand(): string {
-        const drink = this.type + (this.isExtraHot ? 'h' : '');
-        const sugars = this.sugars || '';
-        const stirrer = this.sugars ? '0' : '';
-        return [drink, sugars, stirrer].join(':');
+                public readonly sugars: number,
+                public readonly isExtraHot: boolean) {
     }
 }
 
 export class ColdDrink implements Drink {
-    constructor(public readonly type: DrinkType, public readonly price: Money) {
-    }
+    readonly isExtraHot: boolean = false;
+    readonly sugars: number = 0;
 
-    toCommand(): string {
-        return `${this.type}::`;
+    constructor(
+        public readonly type: DrinkType,
+        public readonly price: Money
+    ) {
     }
 }
 
