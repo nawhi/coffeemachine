@@ -1,5 +1,4 @@
-import {CoffeeMachine} from "../src/CoffeeMachine";
-import {BeverageQuantityChecker, EmailNotifier, Reporter} from "../src/DrinkMaker";
+import {BeverageQuantityChecker, CoffeeMachine, EmailNotifier, Reporter} from "../src/DrinkMaker";
 import {DrinkCode} from "../src/Drink";
 
 export function times(n: number) {

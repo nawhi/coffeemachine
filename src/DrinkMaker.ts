@@ -1,4 +1,3 @@
-import {CoffeeMachine} from "./CoffeeMachine";
 import {SalesRecorder} from "./SalesRecorder";
 import {Drink, DRINK_NAMES, DrinkCode} from "./Drink";
 import {Commands} from "./Commands";
@@ -15,6 +14,10 @@ export interface EmailNotifier {
 
 export interface BeverageQuantityChecker {
     isEmpty(type: DrinkCode): boolean;
+}
+
+export interface CoffeeMachine {
+    send(command: string);
 }
 
 export class DrinkMaker {
